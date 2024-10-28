@@ -50,7 +50,7 @@ resource "aws_vpc_security_group_ingress_rule" "chips_ingress" {
 
 resource "aws_vpc_security_group_ingress_rule" "ois_ingress" {
   for_each = {
-    for rule in local.ois_security_group_rules : "${rule.port}-${rule.cidr}" => rule
+    for rule in local.ois_security_group_rules : "${rule.service}-${rule.port}-${rule.cidr_ipv4}" => rule
   }
 
   security_group_id = aws_security_group.common.id
@@ -63,7 +63,7 @@ resource "aws_vpc_security_group_ingress_rule" "ois_ingress" {
 
 resource "aws_vpc_security_group_ingress_rule" "informix_ingress" {
   for_each = {
-    for rule in local.informix_hdr_security_group_rules : "${rule.port}-${rule.cidr}" => rule
+    for rule in local.informix_hdr_security_group_rules : "${rule.service}-${rule.port}-${rule.cidr_ipv4}" => rule
   }
 
   security_group_id = aws_security_group.common.id
