@@ -67,6 +67,12 @@ locals {
     local.iboss_cidr
   ]
 
+  visual_basic_app_ingress_ports = [
+    3005,
+    6262,
+    6306
+  ]
+
   ois_security_group_rules = flatten([
     for service_name, port_number in var.tuxedo_services : [
       for cidr_block in data.aws_subnet.application[*].cidr_block : {
@@ -86,4 +92,11 @@ locals {
       }
     ]
   ])
+
+  visual_basic_app_security_group_rules = {
+    for product in setproduct(toset(local.visual_basic_app_ingress_ports), toset(local.visual_basic_app_cidrs)) : "${product[0]}-${product[1]}" => {
+      port       = product[0]
+      cidr_ipv4  = product[1]
+    }
+  }
 }

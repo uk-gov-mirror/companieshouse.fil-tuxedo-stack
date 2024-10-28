@@ -26,14 +26,14 @@ resource "aws_vpc_security_group_ingress_rule" "admin_ingress" {
   ip_protocol       = "tcp"
 }
 
-resource "aws_vpc_security_group_ingress_rule" "vb_app_ingress" {
-  for_each = setproduct(toset(local.visual_basic_app_cidrs), toset([3005, 6262, 6306]))
+resource "aws_vpc_security_group_ingress_rule" "visual_basic_app_ingress" {
+  for_each = local.visual_basic_app_security_group_rules
 
   security_group_id = aws_security_group.common.id
   description       = "Allow Informix HDR connectivity for Visual Basic services"
-  cidr_ipv4         = each.value[0]
-  from_port         = each.value[1]
-  to_port           = each.value[1]
+  cidr_ipv4         = each.value.cidr_ipv4
+  from_port         = each.value.port
+  to_port           = each.value.port
   ip_protocol       = "tcp"
 }
 
