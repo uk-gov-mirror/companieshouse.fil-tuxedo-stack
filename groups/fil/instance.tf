@@ -27,7 +27,7 @@ resource "aws_vpc_security_group_ingress_rule" "admin_ingress" {
 }
 
 resource "aws_vpc_security_group_ingress_rule" "vb_app_ingress" {
-  for_each = setproduct(local.visual_basic_app_cidrs, toset([3005, 6262, 6306]))
+  for_each = setproduct(toset(local.visual_basic_app_cidrs), toset([3005, 6262, 6306]))
 
   security_group_id = aws_security_group.common.id
   description       = "Allow Informix HDR connectivity for Visual Basic services"
