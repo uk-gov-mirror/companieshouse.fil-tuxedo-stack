@@ -67,7 +67,7 @@ locals {
     local.iboss_cidr
   ]
 
-  ois_sg_rules = flatten([
+  ois_security_group_rules = flatten([
     for service_name, port_number in var.tuxedo_services : [
       for cidr_block in data.aws_subnet.application[*].cidr_block : {
         service   = service_name
@@ -77,7 +77,7 @@ locals {
     ]
   ])
 
-  informix_sg_rules = flatten([
+  informix_hdr_security_group_rules = flatten([
     for service_name, port_number in var.informix_services : [
       for cidr_block in data.aws_subnet.application[*].cidr_block : {
         service   = service_name
