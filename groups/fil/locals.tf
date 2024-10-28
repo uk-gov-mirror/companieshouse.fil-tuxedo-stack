@@ -66,4 +66,24 @@ locals {
     nonsensitive(data.vault_generic_secret.internal_cidrs.data["ipo_vpn"]),
     local.iboss_cidr
   ]
+
+  ois_sg_rules = flatten([
+    for service_name, port_number in var.tuxedo_services : [
+      for cidr_block in data.aws_subnet.application[*].cidr_block : {
+        service   = service_name
+        port      = port_number
+        cidr_ipv4 = cidr_block
+      }
+    ]
+  ])
+
+  informix_sg_rules = flatten([
+    for service_name, port_number in var.informix_services : [
+      for cidr_block in data.aws_subnet.application[*].cidr_block : {
+        service   = service_name
+        port      = port_number
+        cidr_ipv4 = cidr_block
+      }
+    ]
+  ])
 }
