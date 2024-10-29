@@ -21,8 +21,8 @@ resource "aws_vpc_security_group_ingress_rule" "admin_ingress" {
   security_group_id = aws_security_group.common.id
   description       = "Allow SSH connectivity for application deployments"
   prefix_list_id    = data.aws_ec2_managed_prefix_list.shared_services_management.id
-  from_port         = 80
-  to_port           = 80
+  from_port         = 22
+  to_port           = 22
   ip_protocol       = "tcp"
 }
 
