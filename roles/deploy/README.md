@@ -46,10 +46,10 @@ The following mandatory role variables are required for execution of this role:
 
 ### Services
 
-Tuxedo services are configured using the `tuxedo_service_config` variable. This variable is defined as a dictionary of dictionaries whose keys represent separate groups of Tuxedo services. Each group corresponds to a Linux user login and provides a level of separation between logically related services (e.g. `cabs`, `ef`, `prod`, `scud`).
+Tuxedo services are configured using the `tuxedo_service_config` variable. This variable is defined as a dictionary of dictionaries whose keys represent separate groups of Tuxedo services. Each group corresponds to a Linux user login and provides a level of separation between logically related services (e.g. `cabs`, `ef`, `prod`, and `scud`).
 
 > [!NOTE]
->  A default configuration has been provided for the full set of services (`ef`, `prod`, `scud`, and `cabs`); see [defaults/main.yml](defaults/main.yml).
+>  A default configuration has been provided for the full set of services (`cabs`, `ef`, `prod`, and `scud`); see [defaults/main.yml](defaults/main.yml).
 
 Each dictionary must include the following parameters unless marked _optional_:
 
@@ -105,7 +105,7 @@ Oracle DB credentials for the `CABS` service are read from Hashicorp Vault using
 
 Log data can be pushed to CloudWatch log groups automatically and is controlled by the `tuxedo_log_files` configuration variable. This variable functions in a manner similar to `tuxedo_service_config` (see [Services][3]), whereby each key represents the configuration for a named group of Tuxedo services, each of which corresponds to a user account on the remote host.
 
-`tuxedo_log_files` should be defined as a dictionary of lists whose keys represent named groups of Tuxedo services (e.g. `cabs`, `ef`, `prod` or `scud`). Each list item represents one or more log files and requires the following parameters:
+`tuxedo_log_files` should be defined as a dictionary of lists whose keys represent named groups of Tuxedo services (e.g. `cabs`, `ef`, `prod`, or `scud`). Each list item represents one or more log files and requires the following parameters:
 
 | Name                        | Description                                                                           |
 |-----------------------------|---------------------------------------------------------------------------------------|
@@ -116,7 +116,7 @@ Log data can be pushed to CloudWatch log groups automatically and is controlled 
 
 The `maintenance_jobs` variable can be used to configure scheduled maintenance jobs. This is used primarily as a group or host variable to configure maintenance jobs specific to environments or individual hosts and is generally limited to the _live_ environment where alerts and statistics are required. The absence of a group variable for a given environment means that _no_ scheduled jobs will be configured.
 
-`maintenance_jobs` should be defined as a dictionary of lists whose keys represent named groups of Tuxedo services (e.g. `cabs`, `ef`, `prod` or `scud`). Each list item represents a single scheduled job for the user matching the dictionary key under which the item is defined. The following parameters are required for each list item:
+`maintenance_jobs` should be defined as a dictionary of lists whose keys represent named groups of Tuxedo services (e.g. `cabs`, `ef`, `prod`, or `scud`). Each list item represents a single scheduled job for the user matching the dictionary key under which the item is defined. The following parameters are required for each list item:
 
 | Name           | Description                                                                          |
 |----------------|--------------------------------------------------------------------------------------|
@@ -125,7 +125,7 @@ The `maintenance_jobs` variable can be used to configure scheduled maintenance j
 | `day_of_month` | Day of the month the job should run (`1-31`, `*`, `*/2`, and so on).                 |
 | `minute`       | Minute when the job should run (`0-59`, `*`, `*/2`, and so on).                      |
 | `hour`         | Hour when the job should run (`0-23`, `*`, `*/2`, and so on).                        |
-| `script`       | The name of the script to execute. This should correspond to a script that is present in the [fil-tuxedo-scripts](https://github.com/companieshouse/fil-tuxedo-scripts) artefact being used at the time the role is executed, and is expected to exist in a `scripts/<service>` subdirectory in the expanded artefact, where `<service>` matches the name of the Tuxedo service user for which the script will be deployed (e.g. `cabs`, `ef`, `prod`, `scud`).
+| `script`       | The name of the script to execute. This should correspond to a script that is present in the [fil-tuxedo-scripts](https://github.com/companieshouse/fil-tuxedo-scripts) artefact being used at the time the role is executed, and is expected to exist in a `scripts/<service>` subdirectory in the expanded artefact, where `<service>` matches the name of the Tuxedo service user for which the script will be deployed (e.g. `cabs`, `ef`, `prod`, or `scud`).
 
 For example, to execute the `prod_stats` script at midnight every day as the `prod` user:
 
@@ -146,7 +146,7 @@ During execution of this role, cron jobs are temporarily disabled to avoid gener
 
 The `data_directories` variable can be used to create additional service-specific directories for the storage of files. This is used primarily as a group or host variable.
 
-`data_directories` should be defined as a dictionary of lists whose keys represent named groups of Tuxedo services (e.g. `cabs`, `ef`, `prod` or `scud`). Each list item represents a single directory for which the following parameters are required:
+`data_directories` should be defined as a dictionary of lists whose keys represent named groups of Tuxedo services (e.g. `cabs`, `ef`, `prod`, or `scud`). Each list item represents a single directory for which the following parameters are required:
 
 | Name                 | Default | Description                          |
 |----------------------|---------|--------------------------------------|
