@@ -5,7 +5,7 @@ terraform {
 
   required_providers {
     aws = {
-      version = ">= 5.0, < 6.0"
+      version = ">= 5.0, < 6.1"
       source  = "hashicorp/aws"
     }
   }
@@ -20,7 +20,7 @@ provider "aws" {
 ####################################################################################################
 
 module "s3_access_logging" {
-  source = "git@github.com:companieshouse/terraform-modules//aws/s3_access_logging?ref=tags/1.0.326"
+  source = "git@github.com:companieshouse/terraform-modules//aws/s3_access_logging?ref=tags/1.0.333"
 
   count = local.ef_presenter_data_count
 
