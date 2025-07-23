@@ -1,0 +1,17 @@
+---
+
+# These parameters control TCP keep-alive settings; more frequent keep-alive probes are used
+# to workaround an issue with connections between the CABS service and E5 Oracle DB caused
+# by the firewall eagerly purging TCP sessions and resulting in the CABS service stalling.
+- name: Set TCP keep-alive kernel parameters
+  ansible.posix.sysctl:
+    name: "{{ item.parameter }}"
+    value: "{{ item.value }}"
+    state: present
+  loop:
+    - parameter: net.ipv4.tcp_keepalive_time
+      value: 220
+    - parameter: net.ipv4.tcp_keepalive_intvl
+      value: 60
+    - parameter: net.ipv4.tcp_keepalive_probes
+      value: 5
