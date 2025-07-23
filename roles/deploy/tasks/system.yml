@@ -13,5 +13,5 @@
       value: 220
     - parameter: net.ipv4.tcp_keepalive_intvl
       value: 60
-    - parameter: ipv4.tcp_keepalive_probes
+    - parameter: net.ipv4.tcp_keepalive_probes
       value: 5
