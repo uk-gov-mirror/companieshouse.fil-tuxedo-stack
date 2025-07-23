@@ -5,6 +5,7 @@ write_files:
     content: |
       %{ for db in tnsnames }${ db.name } =
         (DESCRIPTION =
+          (ENABLE=broken)
           (ADDRESS_LIST =
             (ADDRESS = (PROTOCOL = TCP)(HOST = ${ db.address })(PORT = ${ db.port }))
           )
