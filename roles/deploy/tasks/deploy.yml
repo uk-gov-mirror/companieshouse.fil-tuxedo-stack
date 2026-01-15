@@ -257,16 +257,6 @@
   when: sms_poll_daemon_enabled and tuxedo_service == "scud"
   changed_when: "'SMS poll daemon is already running' not in start_sms_poll_daemon.stdout and start_sms_poll_daemon.rc == 0"
 
-- name: "Create autologin configuration for FTP client : {{ tuxedo_service }}"
-  ansible.builtin.template:
-    src: templates/netrc.j2
-    dest: "/home/{{ tuxedo_service }}/.netrc"
-    owner: "{{ tuxedo_service }}"
-    group: "{{ tuxedo_service }}"
-    mode: '0400'
-  when: stats.enabled
-  no_log: true
-
 - name: "Create maintenance jobs : {{ tuxedo_service }}"
   ansible.builtin.cron:
     name: "{{ item.name }}"
