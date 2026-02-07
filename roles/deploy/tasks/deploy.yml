@@ -245,6 +245,7 @@
   args:
     executable: /bin/bash
   changed_when: true
+  no_log: true
 
 - name: "Start SMS poll daemon processes : {{ tuxedo_service }}" # noqa ignore-errors
   become: true
